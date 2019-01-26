@@ -19,13 +19,24 @@ class App extends Component{
     this.stateMachine = new StateMachine();
 }
 
+  
   _saveAnswers(answer) {
-    let answers  = this.state.answers.concat();
-    answers.push(answer);
-    this.setState({
-      answers: answers
-    });
+    if (this.state.currentState === 'PERSONAL_INFO'){
+      let surfer = this.state.surfer;
+      this.setState({
+        surfer: answer
+      });  
+    }
+    else {
+      let answers  = this.state.answers.concat();
+      answers.push(answer);
+      this.setState({
+        answers: answers
+      });  
+    }
+    
   }
+
 
   _next(desiredState) {
     let currentState = this.state.currentState;
@@ -48,6 +59,7 @@ class App extends Component{
         return(<Welcome next={this._next}/>);
       case states.PERSONAL_INFO:
         return(<PersonalInfo 
+          saveForm={this._saveAnswers}
           back={this._back}
           next={this._next}/>);
       case states.BOARD_TYPE:
