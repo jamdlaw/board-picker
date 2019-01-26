@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Button, Grid, Message, List } from 'semantic-ui-react';
+import {Grid,Button} from 'semantic-ui-react';
 import { states } from './States.js';
+
+
+
 
 export const Welcome = (props) => {
   return(
@@ -20,20 +23,34 @@ export class PersonalInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
-    };
+      firstName: null,
+      lastName: null,
+      feet: null,
+      inches: null,
+      weight: null
+    }
     this._back = this._back.bind(this);
     this._onChange = this._onChange.bind(this);
     this._validate = this._validate.bind(this);
-
   }
 
   _onChange(e) {
-    
+    this.setState({
+      [e.currentTarget.name]: e.currentTarget.value
+    });
   }
 
   _validate(e) {
+    e.preventDefault();
+    this.props.saveForm({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      feet: this.state.feet,
+      inches: this.state.inches,
+      weight: this.state.weight
+    });
     this.props.next(states.BOARD_TYPE);
+    
   }
 
   _back() {
@@ -43,7 +60,31 @@ export class PersonalInfo extends Component {
   render() {
     return(
       <div>
-        <h1> PersonalInfo page! </h1>
+        <h1> Surfer Info </h1>
+        <form action="POST" className="surfer-info needs-validation">
+          <div className="form-group">
+            <label htmlFor="firstName">First Name</label>
+            <input type="text" id="firstName" className="form-control" name="firstName" placeholder="First Name" onChange={this._onChange} value={this.state.firstName} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastName">Last Name</label>
+            <input type="text" id="lastName" className="form-control" name="lastName" placeholder="Last Name" onChange={this._onChange} value={this.state.LastName} />
+          </div>
+          <div className="form-row">
+              <div className="form-group col-md-4">
+                <label htmlFor="feet">Feet</label>
+                <input type="text" id="feet" className="form-control" name="feet" placeholder="Feet" onChange={this._onChange} value={this.state.feet} />
+              </div>
+              <div className="form-group col-md-4">
+                <label htmlFor="inches">Inches</label>
+                <input type="text" id="inches" className="form-control" name="inches" placeholder="Inches" onChange={this._onChange} value={this.state.inches} />
+              </div>
+              <div className="form-group col-md-4">
+                  <label htmlFor="weight">Weight</label>
+                  <input type="text" id="weight" className="form-control" name="weight" placeholder="Weight (pounds)" onChange={this._onChange} value={this.state.weight} />
+              </div>
+          </div>
+        </form>
         <Grid>
           <Grid.Column floated='left' width={5}>
             <Button secondary onClick={this._back}>Back</Button>
@@ -61,9 +102,6 @@ export class PersonalInfo extends Component {
 export class BoardType extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      
-    };
     this._back = this._back.bind(this);
     this._onChange = this._onChange.bind(this);
     this._validate = this._validate.bind(this);
@@ -102,9 +140,6 @@ export class BoardType extends Component {
 export class BoardPicker extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      
-    };
     this._back = this._back.bind(this);
     this._onChange = this._onChange.bind(this);
     this._validate = this._validate.bind(this);
@@ -143,9 +178,6 @@ export class BoardPicker extends Component {
 export class FinPicker extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      
-    };
     this._back = this._back.bind(this);
     this._onChange = this._onChange.bind(this);
     this._validate = this._validate.bind(this);
@@ -184,9 +216,6 @@ export class FinPicker extends Component {
 export class ShowOrder extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      
-    };
     this._back = this._back.bind(this);
     this._onChange = this._onChange.bind(this);
     this._validate = this._validate.bind(this);
