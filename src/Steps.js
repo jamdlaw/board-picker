@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Grid,Button} from 'semantic-ui-react';
+import {Grid,Button, Divider, Image} from 'semantic-ui-react';
 import { states } from './States.js';
 
 
@@ -108,10 +108,16 @@ export class BoardType extends Component {
   }
 
   _onChange(e) {
-    
+    this.setState({
+      [e.currentTarget.name]: e.currentTarget.value
+    });
   }
-
+ 
   _validate(e) {
+  	e.preventDefault();
+    this.props.saveForm({
+      boardType: e.currentTarget.value
+    });
     this.props.next(states.BOARD_PICKER);
   }
 
@@ -119,10 +125,20 @@ export class BoardType extends Component {
     this.props.back(states.PERSONAL_INFO)
   }
 
+
   render() {
     return(
       <div>
         <h1> BoardType page! </h1>
+
+        <Image.Group size='small'>
+          <Button onClick={this._validate} value="shortboard"> 		
+	      	<Image src="/img/default_shortboard.jpg"  />
+	      </Button>
+	      <Button onClick={this._validate} value="longboard"> 		
+	      	<Image src="/img/default_longboard.jpg" />
+	      </Button>
+    	</Image.Group>
         <Grid>
             <Grid.Column floated='left' width={5}>
               <Button secondary onClick={this._back}>Back</Button>
