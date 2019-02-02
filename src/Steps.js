@@ -23,11 +23,11 @@ export class PersonalInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: null,
-      lastName: null,
-      feet: null,
-      inches: null,
-      weight: null
+      firstName: '',
+      lastName: '',
+      feet: '',
+      inches: '',
+      weight: ''
     }
     this._back = this._back.bind(this);
     this._onChange = this._onChange.bind(this);
