@@ -33,6 +33,12 @@ class App extends Component{
     }
     else {
       let answers  = this.state.answers.concat();
+      if(this.state.currentState === 'BOARD_TYPE'){
+        let filteredSurfboards = Object.keys(surfboardInventory)
+                                 .filter((key) => surfboardInventory[key].type == answer.boardType )
+                                 .reduce((res, key) => (res[key] = surfboardInventory[key], res), {});
+      this.setState({surfboardInventory: filteredSurfboards});
+      }
       answers.push(answer);
       this.setState({
         answers: answers
