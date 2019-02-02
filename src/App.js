@@ -3,6 +3,7 @@ import { Container, Header, } from 'semantic-ui-react';
 import { Welcome, PersonalInfo, BoardType, BoardPicker, FinPicker, ShowOrder } from './Steps.js';
 import { states } from './States.js';
 import { StateMachine } from './StateMachine.js';
+import  surfboardInventory  from "./surfboardInventory.js"
 
 
 class App extends Component{
@@ -19,6 +20,9 @@ class App extends Component{
     this.stateMachine = new StateMachine();
 }
 
+  componentDidMount(){
+    this.setState({surfboardInventory: surfboardInventory});
+  }
   
   _saveAnswers(answer) {
     if (this.state.currentState === 'PERSONAL_INFO'){
